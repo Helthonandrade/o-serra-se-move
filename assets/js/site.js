@@ -35,3 +35,29 @@
     o.observe(flow);
   }
 })();
+
+/* cenários visíveis: botões com preço no lugar das listas suspensas */
+(() => {
+  const money = new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'});
+  const price = (ordem, cen) => { try { const t = dash.data('totais'); const r = t.status === 'ok' ? t.data.find((x) => Number(x.ordem) === Number(ordem) && x.cenario === cen) : null; return r ? money.format(r.total) : ''; } catch (e) { return ''; } };
+  const segs = [];
+  document.querySelectorAll('select[data-cenario]').forEach((sel) => {
+    const seg = document.createElement('div'); seg.className = 'ps-seg'; seg.setAttribute('role', 'radiogroup'); seg.setAttribute('aria-label', sel.getAttribute('aria-label') || 'Cenário');
+    [...sel.options].forEach((o) => {
+      const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'radio'); b.dataset.v = o.value;
+      const n = document.createElement('span'); n.textContent = o.value; const p = document.createElement('small'); p.textContent = price(sel.dataset.cenario, o.value);
+      b.append(n, p);
+      b.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); if (sel.value === o.value) return; sel.value = o.value; sel.dispatchEvent(new Event('change', {bubbles: true})); });
+      seg.appendChild(b);
+    });
+    sel.classList.add('ps-seg-src'); sel.after(seg); segs.push([sel, seg]);
+  });
+  const sync = () => segs.forEach(([sel, seg]) => seg.querySelectorAll('button').forEach((b) => { const on = b.dataset.v === sel.value; b.setAttribute('aria-checked', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; }));
+  segs.forEach(([, seg]) => seg.addEventListener('keydown', (e) => {
+    if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) return; e.preventDefault();
+    const bs = [...seg.querySelectorAll('button')]; const i = bs.findIndex((b) => b.getAttribute('aria-checked') === 'true');
+    const n = bs[(i + (e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? bs.length - 1 : 1)) % bs.length]; n.click(); n.focus();
+  }));
+  document.addEventListener('change', (e) => { if (e.target.matches && e.target.matches('select[data-cenario]')) sync(); });
+  sync();
+})();

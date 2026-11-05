@@ -947,3 +947,32 @@ body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(
 .ps-scratch .ps-prize small { font-size: 12px !important; }
 .ps-nuc li em { font-size: 12px; }
 @media (max-width: 420px) { .ps-stamp { font-size: 11.5px !important; } }
+
+/* cenários em botões */
+.ps .ps-seg-src { position: absolute !important; width: 1px !important; height: 1px !important; opacity: 0; pointer-events: none; overflow: hidden; clip: rect(0 0 0 0); }
+.ps-seg { display: inline-flex; gap: 4px; padding: 4px; border-radius: var(--r-pill); background: var(--paper); border: 1px solid var(--line); flex-wrap: wrap; }
+.ps-seg button { font: inherit; border: 0; cursor: pointer; border-radius: var(--r-pill); padding: 8px 16px; background: transparent; color: var(--ink); display: flex; flex-direction: column; align-items: center; line-height: 1.15; min-height: 44px; justify-content: center; transition: background-color .3s, color .3s, box-shadow .3s; }
+.ps-seg button span { font-size: 14px; font-weight: 600; }
+.ps-seg button small { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ps-seg button:hover { background: rgba(10,10,10,.06); }
+.ps-seg button[aria-checked="true"] { background: var(--ink); color: #fff; box-shadow: 0 6px 16px -8px rgba(10,10,10,.6); }
+.ps-seg button[aria-checked="true"] small { color: rgba(255,255,255,.72); }
+.ps-seg button:focus-visible { outline: 2px solid #E1194A; outline-offset: 2px; }
+.ps .ps-join.ps-checked .ps-seg, .ps .ps-toggle.ps-checked .ps-seg { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18); }
+.ps .ps-join.ps-checked .ps-seg button, .ps .ps-toggle.ps-checked .ps-seg button { color: #fff; }
+.ps .ps-join.ps-checked .ps-seg button small, .ps .ps-toggle.ps-checked .ps-seg button small { color: rgba(255,255,255,.6); }
+.ps .ps-join.ps-checked .ps-seg button[aria-checked="true"], .ps .ps-toggle.ps-checked .ps-seg button[aria-checked="true"] { background: #fff; color: var(--ink); }
+.ps .ps-join.ps-checked .ps-seg button[aria-checked="true"] small, .ps .ps-toggle.ps-checked .ps-seg button[aria-checked="true"] small { color: var(--muted); }
+.ps-toggle .ps-seg { margin-top: 8px; align-self: flex-start; }
+.ps-toggle .ps-seg button { padding: 6px 12px; }
+@media (max-width: 640px) { .ps-join .ps-seg { display: flex; } .ps-join .ps-seg button { flex: 1; } }
+.ps-foot a.ps-wa-foot { font-weight: 600; }
+.ps .ps-toggle .ps-seg { display: grid; grid-template-columns: 1fr; width: 100%; border-radius: 14px; align-self: stretch; }
+.ps .ps-toggle .ps-seg button { flex-direction: row; justify-content: space-between; gap: 10px; border-radius: 10px; padding: 8px 12px; min-height: 40px; }
+.ps .ps-toggle .ps-seg button span { font-size: 13.5px; color: inherit; line-height: 1.2; text-align: left; }
+.ps .ps-toggle .ps-seg button small { font-size: 12.5px; white-space: nowrap; }
+.ps .ps-toggle .ps-seg button[aria-checked="true"] span { color: #fff; }
+.ps .ps-toggle.ps-checked .ps-seg button[aria-checked="true"] span { color: var(--ink); }
+.ps .ps-toggle.ps-checked .ps-seg button:not([aria-checked="true"]) span { color: #fff; }
+.ps .ps-toggle .ps-seg button { flex-direction: column; align-items: flex-start; gap: 1px; }
+.ps .ps-toggle .ps-seg button span { white-space: nowrap; }
