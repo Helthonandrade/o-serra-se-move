@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: o-serra-se-move
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
+    autoDeployTrigger: commit
