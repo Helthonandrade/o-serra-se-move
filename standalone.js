@@ -158,7 +158,7 @@
     root.querySelectorAll('.ps-dock-dots i').forEach((dot,i)=>dot.classList.toggle('ps-on',selected.has(i+1)));
     root.querySelector('.ps-dock-meter')?.style.setProperty('--k',String(selected.size/5));
     if(animate)root.querySelectorAll('[data-draw="tot"],[data-draw="baita"],[data-draw="direto"]').forEach(value=>{const box=value.closest('.ps-tile');box?.classList.remove('ps-bump');requestAnimationFrame(()=>box?.classList.add('ps-bump'));});
-    if (animate) updateSimulator();
+    updateSimulator();
   };
   root.querySelectorAll('input[type="checkbox"][data-acao]').forEach(input=>input.addEventListener('change',()=>{const id=Number(input.dataset.acao);if(id===1)return updateJourney();input.checked?selected.add(id):selected.delete(id);updateJourney();}));
   root.querySelectorAll('[data-cenario]').forEach(select=>select.addEventListener('change',()=>{root.querySelectorAll(`[data-cenario="${select.dataset.cenario}"]`).forEach(other=>other.value=select.value);const box=select.closest('.ps-toggle,.ps-join');box?.classList.add('ps-pulse');setTimeout(()=>box?.classList.remove('ps-pulse'),650);}));
